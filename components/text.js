@@ -5,6 +5,29 @@ export default function Text({ title }) {
     return null;
   }
   return title.map((value) => {
+    /*
+    {
+      type: 'mention',
+      mention: {
+        type: 'page',
+        page: { id: '*'}
+      },
+      annotations: {
+        bold: false,
+        italic: false,
+        strikethrough: false,
+        underline: false,
+        code: false,
+        color: 'default'
+      },
+      plain_text: 'QGISでプラグインを作る-Widgetの作成-',
+      href: 'https://www.notion.so/*'
+    }
+    */
+    if (value.type === 'mention') {
+      /* eslint-disable no-param-reassign */
+      value.text = value.plain_text;
+    }
     const {
       annotations: {
         bold, code, color, italic, strikethrough, underline,

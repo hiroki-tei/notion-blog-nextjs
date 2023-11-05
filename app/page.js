@@ -7,8 +7,12 @@ export const databaseId = process.env?.NOTION_DATABASE_ID ?? 'NOTION_DATABASE_ID
 
 async function getPosts() {
   const database = await getDatabase();
-
-  return database;
+  /* eslint-disable implicit-arrow-linebreak, comma-dangle, function-paren-newline */
+  const slugPublishedExistItems = database.filter((post) =>
+    post.properties.Slug?.rich_text.length > 0 && post.properties.Published?.checkbox === true
+  );
+  /* eslint-enable implicit-arrow-linebreak, comma-dangle, function-paren-newline */
+  return slugPublishedExistItems;
 }
 
 export default async function Page() {
@@ -87,7 +91,7 @@ export default async function Page() {
               <li key={post.id} className={styles.post}>
                 <h3 className={styles.postTitle}>
                   <Link href={`/article/${slug}`}>
-                    <Text title={post.properties?.Title?.title} />
+                    <Text title={post.properties?.Page?.title} />
                   </Link>
                 </h3>
 
