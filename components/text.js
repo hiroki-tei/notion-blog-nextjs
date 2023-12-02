@@ -1,4 +1,4 @@
-import styles from '../styles/post.module.css';
+import styles from '../styles/builder/post.module.css';
 
 export default function Text({ title }) {
   if (!title) {
