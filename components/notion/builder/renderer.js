@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import Link from 'next/link';
 
 import Text from '../../text';
@@ -9,6 +9,7 @@ import { monokaiSublime } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 export function Block({block}) {
   const { type, id } = block;
   const value = block[type];
+  const [sibling, setSibling] = useState()
 
   switch (type) {
     case 'paragraph':
@@ -19,21 +20,27 @@ export function Block({block}) {
       );
     case 'heading_1':
       return (
-        <h1>
-          <Text title={value.rich_text} />
-        </h1>
+        <div ref={(node) => {setSibling(node?.previousElementSibling)}} className={styles.heading} >
+          <h1>
+            <Text title={value.rich_text} />
+          </h1>
+        </div>
       );
     case 'heading_2':
       return (
-        <h2>
-          <Text title={value.rich_text} />
-        </h2>
+        <div ref={(node) => {setSibling(node?.previousElementSibling)}} className={provideSpaceBetweenHeading(sibling, styles)} >
+          <h2>
+            <Text title={value.rich_text} />
+          </h2>
+        </div>
       );
     case 'heading_3':
       return (
-        <h3>
-          <Text title={value.rich_text} />
-        </h3>
+        <div ref={(node) => {setSibling(node?.previousElementSibling)}}>
+          <h3>
+            <Text title={value.rich_text} />
+          </h3>
+        </div>
       );
     case 'bulleted_list': {
       return <ul>{value.children.map((child) => <Block block={child}/>)}</ul>;
@@ -174,4 +181,8 @@ export function renderNestedList(blocks) {
     return <ol>{value.children.map((block) => renderBlock(block))}</ol>;
   }
   return <ul>{value.children.map((block) => renderBlock(block))}</ul>;
+}
+
+function provideSpaceBetweenHeading(sibling, styles) {
+  return !(sibling?.tagName in ['h1', 'h2', 'h3']) ? styles.heading : ''
 }

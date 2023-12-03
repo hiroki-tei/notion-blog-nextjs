@@ -25,6 +25,10 @@
   opacity: 0.6;
 }
 
+.heading {
+  margin-top: 3.5rem;
+}
+
 .name {
   font-size: 36px;
 }
