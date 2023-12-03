@@ -25,6 +25,7 @@ export default async function Page(props) {
     page,
     blocks,
     article: {
+      title: "タイトルタイトルタイトル"
     }
   }
 
