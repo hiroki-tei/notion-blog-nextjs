@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Text from '../../text';
 import styles from '../../../styles/builder/post.module.css';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { monokaiSublime } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 export function Block({block}) {
   const { type, id } = block;
@@ -102,7 +102,7 @@ export function Block({block}) {
     case 'code':
       const notionLang = value.language
       return (
-        <SyntaxHighlighter language={notionLang} style={monokaiSublime}>
+        <SyntaxHighlighter language={notionLang} style={a11yDark} className={styles.code_block}>
           {value.rich_text[0].plain_text}
         </SyntaxHighlighter>
       );
