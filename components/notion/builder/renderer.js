@@ -6,7 +6,7 @@ import styles from '../../../styles/builder/post.module.css';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { monokaiSublime } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
-export function renderBlock(block) {
+export function Block({block}) {
   const { type, id } = block;
   const value = block[type];
 
@@ -36,10 +36,10 @@ export function renderBlock(block) {
         </h3>
       );
     case 'bulleted_list': {
-      return <ul>{value.children.map((child) => renderBlock(child))}</ul>;
+      return <ul>{value.children.map((child) => <Block block={child}/>)}</ul>;
     }
     case 'numbered_list': {
-      return <ol>{value.children.map((child) => renderBlock(child))}</ol>;
+      return <ol>{value.children.map((child) => <Block block={child}/>)}</ol>;
     }
     case 'bulleted_list_item':
     case 'numbered_list_item':
@@ -67,7 +67,7 @@ export function renderBlock(block) {
             <Text title={value.rich_text} />
           </summary>
           {block.children?.map((child) => (
-            <Fragment key={child.id}>{renderBlock(child)}</Fragment>
+            <Fragment key={child.id}><Block block={child} /></Fragment>
           ))}
         </details>
       );
@@ -75,7 +75,7 @@ export function renderBlock(block) {
       return (
         <div className={styles.childPage}>
           <strong>{value?.title}</strong>
-          {block.children.map((child) => renderBlock(child))}
+          {block.children.map((child) => <Block block={child} />)}
         </div>
       );
     case 'image': {
@@ -149,12 +149,12 @@ export function renderBlock(block) {
     case 'column_list': {
       return (
         <div className={styles.row}>
-          {block.children.map((childBlock) => renderBlock(childBlock))}
+          {block.children.map((childBlock) => <Block block={childBlock} />)}
         </div>
       );
     }
     case 'column': {
-      return <div>{block.children.map((child) => renderBlock(child))}</div>;
+      return <div>{block.children.map((child) => <Block block={child} />)}</div>;
     }
     default:
       return `❌ Unsupported block (${

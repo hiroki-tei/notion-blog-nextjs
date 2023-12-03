@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Text from '../../text.js';
-import { renderBlock } from '../builder/renderer.js';
+import { Block } from '../builder/renderer.js';
 import styles from '../../../styles/builder/post.module.css';
 
 export function Article({page, blocks}) {
@@ -20,7 +20,7 @@ export function Article({page, blocks}) {
         </h1>
         <section>
           {blocks.map((block) => (
-            <Fragment key={block.id}>{renderBlock(block)}</Fragment>
+            <Fragment key={block.id}><Block block={block} /></Fragment>
           ))}
           <Link href="/" className={styles.back}>
             ← Go home
