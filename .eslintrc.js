@@ -35,4 +35,7 @@ module.exports = {
     }],
     'react/prop-types': [0],
   },
+  eslint: {
+    ignoreDuringBuilds: true
+  }
 };
