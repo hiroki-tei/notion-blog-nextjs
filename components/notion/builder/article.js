@@ -10,16 +10,16 @@ export function Article({page, blocks}) {
   return (
     <div>
       <Head>
-        <title>{page.properties.Title?.title[0].plain_text}</title>
+        <title>{page?.properties?.Title?.title[0].plain_text}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <article className={styles.container}>
         <h1 className={styles.name}>
-          <Text title={page.properties.Title?.title} />
+          <Text title={page?.properties?.Title?.title} />
         </h1>
         <section>
-          {blocks.map((block) => (
+          {blocks?.map((block) => (
             <Fragment key={block.id}><Block block={block} /></Fragment>
           ))}
           <Link href="/" className={styles.back}>
