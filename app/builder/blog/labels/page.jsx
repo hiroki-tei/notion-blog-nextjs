@@ -2,18 +2,25 @@ import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "../../../../components/builder";
 
 import {
-  getDatabase, getBlocks, getPageFromSlug, getPage
+  getTagLibraryDatabase, listPagesFromLabel
 } from '../../../../lib/notion';
 
 // Builder Public API Key set in .env file
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
 export default async function Page(props) {
-  const database = await getDatabase();
   /* eslint-disable implicit-arrow-linebreak, comma-dangle, function-paren-newline */
-  const posts = database.filter((post) =>
-    post.properties.Slug?.rich_text.length > 0 && post.properties.Published?.checkbox === true
-  );
+  const pages = await listPagesFromLabel("AzureOpenAI");
+  const data = {
+    page: pages.map(page=> {
+      const slug = page.properties.Slug.rich_text[0].plain_text
+      return {
+        slug,
+        title: page.properties.Page.title[0].plain_text,
+        url: `/builder/blog/${slug}`
+      }
+    })
+  }
   const content = await builder
     // Get the page content from Builder with the specified options
     .get("page", {
@@ -24,9 +31,6 @@ export default async function Page(props) {
     })
     // Convert the result to a promise
     .toPromise();
-
-  const data = {
-  }
 
   return (
     <>
