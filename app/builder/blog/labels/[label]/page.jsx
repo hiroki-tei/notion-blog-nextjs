@@ -21,10 +21,17 @@ export default async function Page(props) {
   const pages = await listPagesFromLabel(decodeURIComponent(props.params?.label));
 
   const data = {
-    page: pages.map(page=> ({
-      slug: page.properties.Slug.rich_text[0].plain_text,
-      title: page.properties.Page.title[0].plain_text
-    }))
+    page:
+      pages
+        .filter(page => page?.properties?.Slug?.rich_text?.length > 0)
+        .map(page=> {
+          const slug = page.properties.Slug.rich_text[0].plain_text
+            return {
+              slug,
+              title: page.properties.Page.title[0].plain_text,
+              url: `/builder/blog/${slug}`
+            }
+        })
   }
   const content = await builder
     // Get the page content from Builder with the specified options

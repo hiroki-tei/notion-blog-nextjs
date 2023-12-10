@@ -10,16 +10,19 @@ builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
 export default async function Page(props) {
   /* eslint-disable implicit-arrow-linebreak, comma-dangle, function-paren-newline */
-  const pages = await listPagesFromLabel("AzureOpenAI");
+  const pages = await listPagesFromLabel("Geo");
   const data = {
-    page: pages.map(page=> {
-      const slug = page.properties.Slug.rich_text[0].plain_text
-      return {
-        slug,
-        title: page.properties.Page.title[0].plain_text,
-        url: `/builder/blog/${slug}`
-      }
-    })
+    page:
+      pages
+        .filter(page => page?.properties?.Slug?.rich_text?.length > 0)
+        .map(page=> {
+          const slug = page.properties.Slug.rich_text[0].plain_text
+            return {
+              slug,
+              title: page.properties.Page.title[0].plain_text,
+              url: `/builder/blog/${slug}`
+            }
+        })
   }
   const content = await builder
     // Get the page content from Builder with the specified options
