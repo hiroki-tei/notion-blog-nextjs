@@ -22,7 +22,8 @@ export default async function Page(props) {
               title: page.properties.Page.title[0].plain_text,
               url: `/builder/blog/${slug}`
             }
-        })
+        }),
+    label: 'Geo'
   }
   const content = await builder
     // Get the page content from Builder with the specified options
