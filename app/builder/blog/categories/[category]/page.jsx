@@ -21,8 +21,6 @@ export default async function Page(props) {
   /* eslint-disable implicit-arrow-linebreak, comma-dangle, function-paren-newline */
   const labels = await listLabelsFromCategory(props.params?.category);
 
-  console.log(props.params?.category)
-  console.log(labels)
   const data = {
     category: props.params?.category,
     labels
