@@ -2,7 +2,7 @@ import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "../../../../components/builder";
 
 import {
-  getDatabase, getBlocks, getPageFromSlug, getPage
+  getDatabase, ARTICLE_CATEGORIES
 } from '../../../../lib/notion';
 
 // Builder Public API Key set in .env file
@@ -26,6 +26,7 @@ export default async function Page(props) {
     .toPromise();
 
   const data = {
+    categories: ARTICLE_CATEGORIES
   }
 
   return (
