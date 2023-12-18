@@ -2,7 +2,7 @@ import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "../../../../components/builder";
 
 import {
-  listLabelsFromCategory
+  listLabelsFromCategory, getPagesWithSlug
 } from '../../../../lib/notion';
 
 // Builder Public API Key set in .env file
@@ -11,7 +11,16 @@ builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 export default async function Page(props) {
   /* eslint-disable implicit-arrow-linebreak, comma-dangle, function-paren-newline */
   const testCategory = 'Resume'
-  const labels = await listLabelsFromCategory(testCategory);
+  const labelsWithPageIDs = await listLabelsFromCategory(testCategory);
+
+  const labelWithPages = await Promise.all(labelsWithPageIDs.flatMap(async (lbl) => {
+    const pages = await getPagesWithSlug(lbl.articles)
+    return {
+      name: lbl.name,
+      articles: pages
+    }
+  }))
+
   const data = {
     //page:
     //  pages
@@ -25,7 +34,7 @@ export default async function Page(props) {
     //        }
     //    }),
     category: testCategory,
-    labels
+    label: labelWithPages
   }
   const content = await builder
     // Get the page content from Builder with the specified options

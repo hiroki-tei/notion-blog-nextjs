@@ -2,7 +2,7 @@ import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "../../../../../components/builder";
 
 import {
-  listLabelsFromCategory, ARTICLE_CATEGORIES
+  listLabelsFromCategory, getPagesWithSlug, ARTICLE_CATEGORIES
 } from '../../../../../lib/notion';
 
 // Builder Public API Key set in .env file
@@ -19,11 +19,19 @@ export async function generateStaticParams() {
 
 export default async function Page(props) {
   /* eslint-disable implicit-arrow-linebreak, comma-dangle, function-paren-newline */
-  const labels = await listLabelsFromCategory(props.params?.category);
+  const labelsWithPageIDs = await listLabelsFromCategory(props.params?.category);
+
+  const labelWithPages = await Promise.all(labelsWithPageIDs.flatMap(async (lbl) => {
+    const pages = await getPagesWithSlug(lbl.articles)
+    return {
+      name: lbl.name,
+      articles: pages
+    }
+  }))
 
   const data = {
     category: props.params?.category,
-    labels
+    label: labelWithPages
   }
   const content = await builder
     // Get the page content from Builder with the specified options
