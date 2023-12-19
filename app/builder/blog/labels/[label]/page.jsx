@@ -18,7 +18,8 @@ export async function generateStaticParams() {
 }
 
 export default async function Page(props) {
-  const pages = await listPagesFromLabel(decodeURIComponent(props.params?.label));
+  const label = decodeURIComponent(props.params?.label)
+  const pages = await listPagesFromLabel(label)
 
   const data = {
     page:
@@ -32,7 +33,7 @@ export default async function Page(props) {
               url: `/builder/blog/${slug}`
             }
         }),
-    label: props.params?.label
+    label
   }
   const content = await builder
     // Get the page content from Builder with the specified options

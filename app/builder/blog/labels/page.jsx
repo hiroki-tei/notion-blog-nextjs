@@ -2,15 +2,15 @@ import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "../../../../components/builder";
 
 import {
-  getTagLibraryDatabase, listPagesFromLabel
+  listPagesFromLabel
 } from '../../../../lib/notion';
 
 // Builder Public API Key set in .env file
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
 export default async function Page(props) {
-  /* eslint-disable implicit-arrow-linebreak, comma-dangle, function-paren-newline */
-  const pages = await listPagesFromLabel("Geo");
+  const label = decodeURIComponent("Geo")
+  const pages = await listPagesFromLabel(label);
   const data = {
     page:
       pages
@@ -23,7 +23,7 @@ export default async function Page(props) {
               url: `/builder/blog/${slug}`
             }
         }),
-    label: 'Geo'
+    label
   }
   const content = await builder
     // Get the page content from Builder with the specified options
