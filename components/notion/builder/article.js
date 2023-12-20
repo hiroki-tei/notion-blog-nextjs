@@ -22,7 +22,7 @@ export function Article({page, blocks}) {
           {blocks?.map((block) => (
             <Fragment key={block.id}><Block block={block} /></Fragment>
           ))}
-          <Link href="/" className={styles.back}>
+          <Link href="/builder/blog/top" className={styles.back}>
             ← Go home
           </Link>
         </section>
