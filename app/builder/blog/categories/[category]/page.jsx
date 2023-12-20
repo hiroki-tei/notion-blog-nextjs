@@ -2,7 +2,7 @@ import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "../../../../../components/builder";
 
 import {
-  listLabelsFromCategory, getPagesWithURI, ARTICLE_CATEGORIES
+  listLabelsFromCategory, pagesIntoURI, ARTICLE_CATEGORIES
 } from '../../../../../lib/notion';
 
 // Builder Public API Key set in .env file
@@ -22,9 +22,10 @@ export default async function Page(props) {
   const labelsWithPageIDs = await listLabelsFromCategory(props.params?.category);
 
   const labelWithPages = await Promise.all(labelsWithPageIDs.flatMap(async (lbl) => {
-    const pages = await getPagesWithURI(lbl.articles)
+    const pages = await pagesIntoURI(lbl.articles)
     return {
       name: lbl.name,
+      icon: lbl.icon,
       articles: pages
     }
   }))
