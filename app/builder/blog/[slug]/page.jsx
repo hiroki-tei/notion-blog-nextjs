@@ -43,7 +43,13 @@ export default async function Page(props) {
     },
     tags: page.properties.Tags.multi_select.map(tag => tag.name),
     category: page.properties.Category.rollup.array.map(cat => cat.multi_select.map(each => each.name)).flat(),
-    labels: labelPages.map(page => page.properties["名前"].title[0].plain_text)
+    labels: labelPages.map(page => {
+      return {
+        uri: `/builder/blog/labels/${page.properties["名前"].title[0].plain_text}`,
+        name: page.properties["名前"].title[0].plain_text
+      }
+    })
+
   }
 
   return (
