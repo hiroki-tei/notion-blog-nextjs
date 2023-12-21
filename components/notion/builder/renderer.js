@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react';
 import Link from 'next/link';
 
 import Text from '../../text';
+import { LinkPreview } from '../../LinkPreview'
 import styles from '../../../styles/builder/post.module.css';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
@@ -163,6 +164,15 @@ export function Block({block}) {
     case 'column': {
       return <div>{block.children.map((child) => <Block block={child} />)}</div>;
     }
+
+    case 'video': {
+      return <video controls width="640" src={block.video.file.url} />
+    }
+
+    case 'link_preview': {
+      return <LinkPreview url={block.link_preview.url} />
+    }
+
     default:
       return `❌ Unsupported block (${
         type === 'unsupported' ? 'unsupported by Notion API' : type
