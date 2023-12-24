@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { RenderBuilderContent } from "./builder";
 import { builder } from "@builder.io/sdk";
 import { fetchOgp } from '../app/actions/fetch-ogp';
@@ -9,27 +9,28 @@ type Props = {
   url: string
 }
 
-export function LinkPreview ({
+export default async function LinkPreview ({
   url
-}: Props): React.FC {
-  const [ogp, setOgp] = useState({})
-  const [content, setContent] = useState({})
+}: Props) {
 
   const fetchOgpReady = fetchOgp.bind(null, url)
-  useEffect(() => {
-    fetchOgpReady().then(response => {
-      !ogp && setOgp(response)
-    })
-    //builder.get("link-preview", {
-    //  userAttributes: {
-    //    urlPath: "/" + "builder/" + "blog/"
-    //  }
-    //}).then(data => {
-    //  !content && setContent(data)
-    //})
-  }, [ogp])
-  const data = {}
+
+  const ogp = await fetchOgpReady()
+  console.log(ogp)
+
+  const content = await builder.get("link-preview", {
+    userAttributes: {
+      urlPath: "/" + "builder/" + "blog/" + "langchain-prompttemplate-write-json-bug"
+    },
+    prerender: false
+  }).toPromise()
+  console.log(content)
+  const data = ogp
+
   return (
-    <RenderBuilderContent model="link-preview" content={content} />
+    <>
+      <RenderBuilderContent key="link-preview" content={content} data={data} />
+    </>
   )
+
 }

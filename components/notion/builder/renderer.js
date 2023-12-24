@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import Link from 'next/link';
 
 import Text from '../../text';
-import { LinkPreview } from '../../LinkPreview'
+import LinkPreview from '../../LinkPreview'
 import styles from '../../../styles/builder/post.module.css';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
@@ -170,7 +170,11 @@ export function Block({block}) {
     }
 
     case 'link_preview': {
-      return <LinkPreview url={block.link_preview.url} />
+          //<LinkPreview key="33333" url={block.link_preview.url} />
+      return (
+        <>
+        </>
+      )
     }
 
     default:
