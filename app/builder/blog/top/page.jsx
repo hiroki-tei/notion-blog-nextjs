@@ -11,9 +11,9 @@ builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 export default async function Page(props) {
   const database = await getDatabase();
   /* eslint-disable implicit-arrow-linebreak, comma-dangle, function-paren-newline */
-  //const posts = database.filter((post) =>
-  //  post.properties.Slug?.rich_text.length > 0 && post.properties.Published?.checkbox === true
-  //);
+  const posts = database.filter((post) =>
+    post.properties.Slug?.rich_text.length > 0 && post.properties.Published?.checkbox === true
+  );
   const content = await builder
     // Get the page content from Builder with the specified options
     .get("page", {
