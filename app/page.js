@@ -3,7 +3,7 @@ import { getDatabase } from '../lib/notion';
 import Text from '../components/text';
 import styles from './index.module.css';
 
-export const databaseId = process.env?.NOTION_DATABASE_ID ?? 'NOTION_DATABASE_ID';
+const databaseId = process.env?.NOTION_DATABASE_ID ?? 'NOTION_DATABASE_ID';
 
 async function getPosts() {
   const database = await getDatabase();
