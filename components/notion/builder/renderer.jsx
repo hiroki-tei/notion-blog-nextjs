@@ -170,11 +170,7 @@ export function Block({block}) {
     }
 
     case 'link_preview': {
-          //<LinkPreview key="33333" url={block.link_preview.url} />
-      return (
-        <>
-        </>
-      )
+      return <LinkPreview url={block.link_preview.url} />
     }
 
     default:

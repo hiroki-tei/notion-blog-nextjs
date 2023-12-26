@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Text from '../../text.js';
-import { Block } from '../builder/renderer.js';
+import { Block } from '../builder/renderer';
 import styles from '../../../styles/builder/post.module.css';
 
 export function Article({page, blocks}) {
