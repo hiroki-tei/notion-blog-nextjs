@@ -127,12 +127,7 @@ export function Block({block}) {
       );
     }
     case 'bookmark': {
-      const href = value.url;
-      return (
-        <a href={href} target="_blank" rel="noreferrer noopener" className={styles.bookmark}>
-          {href}
-        </a>
-      );
+      return <LinkPreview url={block.bookmark.url} />
     }
     case 'table': {
       return (

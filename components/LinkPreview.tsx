@@ -28,8 +28,20 @@ const LinkPreview = ({ url }) => {
   }, [])
 
 
+  const setOGPDefault = ( arg: OGP ) => {
+    const noContent = ['/notfound.svg']
+    const noTitle = 'No Title'
+    const noDescription = 'No Description'
+    return {
+      images: arg?.images.length ? arg?.images : noContent,
+      videos: arg?.videos.length ? arg?.videos : noContent,
+      title: arg?.title || arg?.url || noTitle,
+      description: arg?.description || noDescription,
+    }
+  }
+
   const data = {
-    ogp
+    ogp: setOGPDefault(ogp)
   }
 
   return (
@@ -43,10 +55,10 @@ export default LinkPreview
 
 type OGP = {
   url: URL
-  images: Array<URL>
-  videos: Array<URL>
+  images: Array<string>
+  videos: Array<string>
   title: string
   siteName: string
-  description: string
+  description?: string
   mediaType: string
-}
+} | undefined
