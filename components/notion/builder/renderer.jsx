@@ -8,6 +8,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 export function Block({block}) {
+  // https://developers.notion.com/reference/block
   const { type, id } = block;
   const value = block[type];
   const [sibling, setSibling] = useState()
