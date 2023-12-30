@@ -22,7 +22,7 @@ export default async function Page(props) {
   const labelsWithPageIDs = await listLabelsFromCategory(props.params?.category);
 
   const labelWithPages = await Promise.all(labelsWithPageIDs.flatMap(async (lbl) => {
-    const pages = await pagesIntoURI(lbl.articles, 10)
+    const pages = await pagesIntoURI(lbl.articles, 5)
     return {
       name: lbl.name,
       icon: lbl.icon,
