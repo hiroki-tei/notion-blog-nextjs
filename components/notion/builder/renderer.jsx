@@ -92,7 +92,9 @@ export function Block({block}) {
       const caption = value.caption ? value.caption[0]?.plain_text : '';
       return (
         <figure>
-          <img src={src} alt={caption} />
+          <a href={src}>
+            <img src={src} alt={caption} />
+          </a>
           {caption && <figcaption>{caption}</figcaption>}
         </figure>
       );
