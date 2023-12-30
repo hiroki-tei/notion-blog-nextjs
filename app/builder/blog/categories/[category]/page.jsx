@@ -21,6 +21,7 @@ export default async function Page(props) {
   /* eslint-disable implicit-arrow-linebreak, comma-dangle, function-paren-newline */
   const labels = await listLabelsFromCategory(props.params?.category);
 
+<<<<<<< HEAD
   const articleItemLimit = 3
   const labelWithPages = await Promise.all(
     labels.flatMap(async (lbl) => {
@@ -46,6 +47,16 @@ export default async function Page(props) {
   ).then((lbls) => {
     return lbls.filter(lbl => lbl.articles.length > 0)
   })
+=======
+  const labelWithPages = await Promise.all(labelsWithPageIDs.flatMap(async (lbl) => {
+    const pages = await pagesIntoURI(lbl.articles, 5)
+    return {
+      name: lbl.name,
+      icon: lbl.icon,
+      articles: pages
+    }
+  }))
+>>>>>>> master
 
   const data = {
     category: props.params?.category,
