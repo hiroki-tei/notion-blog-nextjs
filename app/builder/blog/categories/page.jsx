@@ -11,16 +11,33 @@ builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 export default async function Page(props) {
   /* eslint-disable implicit-arrow-linebreak, comma-dangle, function-paren-newline */
   const testCategory = 'Tech'
-  const labelsWithPageIDs = await listLabelsFromCategory(testCategory);
+  const labels = await listLabelsFromCategory(testCategory)
 
-  const labelWithPages = await Promise.all(labelsWithPageIDs.flatMap(async (lbl) => {
-    const pages = await pagesIntoURI(lbl.articles)
-    return {
-      name: lbl.name,
-      icon: lbl.icon,
-      articles: pages
-    }
-  }))
+  const articleItemLimit = 3
+  const labelWithPages = await Promise.all(
+    labels.flatMap(async (lbl) => {
+      let pages = await pagesIntoURI(lbl.articles, articleItemLimit)
+      pages = pages
+        .filter(page => {
+          const slug = page?.properties?.Slug?.rich_text[0]?.plain_text
+          return !!slug
+        })
+        .map(page => {
+          return {
+            uri: `/builder/blog/${page.properties.Slug.rich_text[0].plain_text}`,
+            title: page?.properties?.Page?.title[0]?.text?.content,
+          }
+        })
+
+      return {
+        name: lbl.name,
+        icon: lbl.icon,
+        articles: pages
+      }
+    })
+  ).then((lbls) => {
+    return lbls.filter(lbl => lbl.articles.length > 0)
+  })
 
   const data = {
     //page:
