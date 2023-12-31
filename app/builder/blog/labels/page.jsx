@@ -20,7 +20,8 @@ export default async function Page(props) {
             return {
               slug,
               title: page.properties.Page.title[0].plain_text,
-              url: `/builder/blog/${slug}`
+              url: `/builder/blog/${slug}`,
+              date: page.properties.Date.date.start // yyyy-mm-dd
             }
         }),
     label
