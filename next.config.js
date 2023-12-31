@@ -4,6 +4,15 @@ const withBuilderDevTools = require("@builder.io/dev-tools/next")();
 const nextConfig = withBuilderDevTools({
   experimental: {
     serverMinification: false
+  },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/builder/blog/top",
+        permanent: false
+      }
+    ];
   }
 });
 
