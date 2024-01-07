@@ -172,9 +172,12 @@ export function Block({block}) {
     }
 
     default:
-      return `❌ Unsupported block (${
-        type === 'unsupported' ? 'unsupported by Notion API' : type
-      })`;
+      console.warn(
+        `❌ Unsupported block (${
+          type === 'unsupported' ? 'unsupported by Notion API' : type
+        })`
+      )
+      return null
   }
 }
 
