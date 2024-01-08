@@ -6,6 +6,7 @@ import LinkPreview from '../../LinkPreview'
 import styles from '../../../styles/builder/post.module.css';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import { Callout } from '../blocks/Callout';
 
 export function Block({block}) {
   // https://developers.notion.com/reference/block
@@ -169,6 +170,10 @@ export function Block({block}) {
 
     case 'link_preview': {
       return <LinkPreview url={block.link_preview.url} />
+    }
+
+    case 'callout': {
+      return <Callout text={block.callout.rich_text[0].plain_text} />
     }
 
     default:
