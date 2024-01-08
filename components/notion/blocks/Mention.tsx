@@ -15,7 +15,7 @@ export const Mention = ({
         getPageAction(pageID)
           .then(response => setPage(response))
       }, [])
-      return <LinkPreview url={page?.properties?.URL?.url ?? undefined} />
+      return <LinkPreview url={page?.properties?.URL?.['url'] ?? undefined} />
 
     case 'user':
     default:
