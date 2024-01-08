@@ -47,7 +47,10 @@ const LinkPreview = ({ url }) => {
   }
 
   const data = {
-    ogp: setOGPDefault(ogp)
+    ogp: {
+      url,
+      ...setOGPDefault(ogp)
+    }
   }
 
   return (
