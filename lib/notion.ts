@@ -48,7 +48,6 @@ export const getTagLibraryDatabase = cache(async () => {
 
 export const getPage = cache(async (pageId) => {
   const response = await notion.pages.retrieve({ page_id: pageId });
-    console.log(response)
   if ('properties' in response) {
     return response as PageObjectResponse
   } else {
