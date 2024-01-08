@@ -6,6 +6,12 @@ import { fetchOgp } from '../app/actions/fetch-ogp';
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
 const LinkPreview = ({ url }) => {
+  // Parent components sometimes gives null url because it asyncronously fetches URL
+  // So here we should consider waiting them fetching correct URL
+  // In waiting time, here we assume they provide undefined so we skip rendering
+  if (!url) {
+    return null
+  }
   const [ogp, setOgp] = useState<OGP>()
   const [content, setContent] = useState({})
 
