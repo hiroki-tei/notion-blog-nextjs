@@ -5,7 +5,12 @@ import { fetchOgp } from '../app/actions/fetch-ogp';
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
-const LinkPreview = ({ url }) => {
+type Props = {
+  url: string
+  disp: 'card' | 'inline'
+}
+
+const LinkPreview = ({ url, disp }: Props) => {
   // Parent components sometimes gives null url because it asyncronously fetches URL
   // So here we should consider waiting them fetching correct URL
   // In waiting time, here we assume they provide undefined so we skip rendering
@@ -23,7 +28,12 @@ const LinkPreview = ({ url }) => {
   useEffect(() => {
     builder
       // Get the page content from Builder with the specified options
-      .get("link-preview", {
+      .get('link-preview', {
+        query: {
+          name: {
+            $eq: getBuilderElement(disp)
+          }
+        },
         userAttributes: {
           // Use the page path specified in the URL to fetch the content
           urlPath: "/builder/blog"
@@ -32,6 +42,7 @@ const LinkPreview = ({ url }) => {
       .toPromise()
       .then((content) => setContent(content))
   }, [])
+  console.log(content)
 
 
   const setOGPDefault = ( arg: OGP ) => {
@@ -71,3 +82,14 @@ type OGP = {
   description?: string
   mediaType: string
 } | undefined
+
+const getBuilderElement = (disp) => {
+  switch (disp) {
+    case 'card':
+      return 'link-preview'
+    case 'inline':
+      return 'link-preview-inline'
+    default:
+      return undefined
+  }
+}
