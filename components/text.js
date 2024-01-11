@@ -34,7 +34,7 @@ export default function Text({ title }) {
 
     switch (value.type) {
       case 'mention': {
-        return <Mention type={value.mention.type} pageID={value.mention.page.id}/>
+        return <Mention type={value.mention.type} pageID={value?.mention?.page?.id} url={value?.mention?.link_preview?.url} />
       }
       default: {
         return (

@@ -130,7 +130,7 @@ export function Block({block}) {
       );
     }
     case 'bookmark': {
-      return <LinkPreview url={block.bookmark.url} />
+      return <LinkPreview url={block.bookmark.url} disp='card' />
     }
     case 'table': {
       return (
@@ -169,7 +169,7 @@ export function Block({block}) {
     }
 
     case 'link_preview': {
-      return <LinkPreview url={block.link_preview.url} />
+      return <LinkPreview url={block.link_preview.url} disp='card' />
     }
 
     case 'callout': {
