@@ -1,8 +1,8 @@
 import { builder } from "@builder.io/sdk";
-import { RenderBuilderContent } from "../../../components/builder";
+import { RenderBuilderContent } from "@components/builder";
 import {
   getBlocks, getPageFromSlug, getPage
-} from '../../../lib/notion';
+} from '@lib/notion';
 
 // Builder Public API Key set in .env file
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
