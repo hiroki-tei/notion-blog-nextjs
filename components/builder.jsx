@@ -2,7 +2,7 @@
 import { BuilderComponent, useIsPreviewing } from "@builder.io/react";
 import { builder } from "@builder.io/sdk";
 import { Builder } from '@builder.io/react'
-import { Article } from "../components/notion/builder/article";
+import { Article } from "@components/notion/builder/article";
 import DefaultErrorPage from "next/error";
 import "../builder-registry";
 

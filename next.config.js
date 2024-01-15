@@ -9,7 +9,7 @@ const nextConfig = withBuilderDevTools({
     return [
       {
         source: "/",
-        destination: "/builder/blog/top",
+        destination: "/blog/top",
         permanent: false
       }
     ];

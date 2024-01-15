@@ -21,7 +21,15 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@blog/*": ["app/blog/*"],
+      "@actions/*": ["app/actions/*"],
+      "@lib/*": ["lib/*"],
+      "@components/*": ["components/*"],
+      "@styles/*": ["styles/*"]
+    }
   },
   "include": [
     "next-env.d.ts",

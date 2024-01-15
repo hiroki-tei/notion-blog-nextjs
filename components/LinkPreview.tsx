@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "./builder";
-import { fetchOgp } from '../app/actions/fetch-ogp';
+import { fetchOgp } from '@actions/fetch-ogp';
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
@@ -36,7 +36,7 @@ const LinkPreview = ({ url, disp }: Props) => {
         },
         userAttributes: {
           // Use the page path specified in the URL to fetch the content
-          urlPath: "/builder/blog"
+          urlPath: "/blog"
         },
       })
       .toPromise()
@@ -66,7 +66,7 @@ const LinkPreview = ({ url, disp }: Props) => {
 
   return (
     <>
-      <RenderBuilderContent content={content} data={data} />
+      <RenderBuilderContent content={content} data={data} model='section' />
     </>
   )
 }

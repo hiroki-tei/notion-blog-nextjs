@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { builder } from "@builder.io/sdk";
-import { RenderBuilderContent } from "../../builder";
+import { RenderBuilderContent } from "@components/builder";
 
 export const Callout = ({ text }) => {
   const [content, setContent] = useState({})
@@ -10,7 +10,7 @@ export const Callout = ({ text }) => {
       .get("callout", {
         userAttributes: {
           // Use the page path specified in the URL to fetch the content
-          urlPath: "/builder/blog"
+          urlPath: "/blog"
         },
       })
       .toPromise()
@@ -19,5 +19,5 @@ export const Callout = ({ text }) => {
   const data = {
     text
   }
-  return <RenderBuilderContent content={content} data={data} />
+  return <RenderBuilderContent content={content} data={data} model='section' />
 }

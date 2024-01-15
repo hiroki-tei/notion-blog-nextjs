@@ -1,9 +1,9 @@
 import { builder } from "@builder.io/sdk";
-import { RenderBuilderContent } from "../../../../../components/builder";
+import { RenderBuilderContent } from "@components/builder";
 
 import {
   listLabelsFromCategory, pagesIntoURI, ARTICLE_CATEGORIES
-} from '../../../../../lib/notion';
+} from '@lib/notion';
 
 // Builder Public API Key set in .env file
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
@@ -32,7 +32,7 @@ export default async function Page(props) {
         })
         .map(page => {
           return {
-            uri: `/builder/blog/${page.properties.Slug.rich_text[0].plain_text}`,
+            uri: `/blog/articles/${page.properties.Slug.rich_text[0].plain_text}`,
             title: page?.properties?.Page?.title[0]?.text?.content,
           }
         })
@@ -56,7 +56,7 @@ export default async function Page(props) {
     .get("page", {
       userAttributes: {
         // Use the page path specified in the URL to fetch the content
-        urlPath: "/" + "builder/" + "blog/" + "categories/" +(props?.params?.page?.join("/") || ""),
+        urlPath: "/" + "blog/" + "categories/" +(props?.params?.page?.join("/") || ""),
       },
     })
     // Convert the result to a promise
