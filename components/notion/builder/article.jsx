@@ -2,9 +2,9 @@
 import { Fragment } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import Text from '../../text.js';
-import { Block } from '../builder/renderer';
-import styles from '../../../styles/builder/post.module.css';
+import Text from '@components/text';
+import { Block } from '@components/notion/builder/renderer';
+import styles from '@styles/builder/post.module.css';
 
 export function Article({page, blocks}) {
   return (
@@ -22,7 +22,7 @@ export function Article({page, blocks}) {
           {blocks?.map((block) => (
             <Fragment key={block.id}><Block block={block} /></Fragment>
           ))}
-          <Link href="/builder/blog/top" className={styles.back}>
+          <Link href="/blog/top" className={styles.back}>
             ← Go home
           </Link>
         </section>

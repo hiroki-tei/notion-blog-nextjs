@@ -24,7 +24,7 @@ export default async function Page(props) {
     .get("page", {
       userAttributes: {
         // Use the page path specified in the URL to fetch the content
-        urlPath: "/" + "blog/" +(props?.params?.page?.join("/") || ""),
+        urlPath: "/" + "blog/" + "articles/" +(props?.params?.page?.join("/") || ""),
       },
     })
     // Convert the result to a promise
@@ -45,7 +45,7 @@ export default async function Page(props) {
     category: page.properties.Category.rollup.array.map(cat => cat.multi_select.map(each => each.name)).flat(),
     labels: labelPages.map(page => {
       return {
-        uri: `/builder/blog/labels/${page.properties["名前"].title[0].plain_text}`,
+        uri: `/blog/labels/${page.properties["名前"].title[0].plain_text}`,
         name: page.properties["名前"].title[0].plain_text
       }
     })

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { getPageAction } from '../../../app/actions/notion';
+import { getPageAction } from '@actions/notion';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
-import LinkPreview from '../../LinkPreview';
+import LinkPreview from '@components/LinkPreview';
 
 type PageMention = {
   type: 'page'
