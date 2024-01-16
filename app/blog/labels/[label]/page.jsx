@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 
   return database?.map((page) => {
     const label = page.properties["名前"]?.formula?.string;
-    return { id: page.id, label };
+    return { id: page.id, label: decodeURIComponent(label) };
   });
 }
 
