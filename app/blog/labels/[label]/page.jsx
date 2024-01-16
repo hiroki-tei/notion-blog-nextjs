@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 
   return database?.map((page) => {
     const label = page.properties["名前"]?.formula?.string;
-    return { id: page.id, label: encodeURIComponent(label) };
+    return { id: page.id, label };
   });
 }
 
@@ -25,13 +25,14 @@ export default async function Page(props) {
     page:
       pages
         .filter(page => page?.properties?.Slug?.rich_text?.length > 0)
+        .filter(page => page.properties.Date.date?.start)
         .map(page=> {
           const slug = page.properties.Slug.rich_text[0].plain_text
             return {
               slug,
               title: page.properties.Page.title[0].plain_text,
               url: `/blog/articles/${slug}`,
-              date: page.properties.Date.date.start // yyyy-mm-dd
+              date: page.properties.Date.date?.start // yyyy-mm-dd
             }
         }),
     label
