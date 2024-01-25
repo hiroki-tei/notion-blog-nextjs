@@ -3,7 +3,7 @@ import { ARTICLE_CATEGORIES, getDatabase } from '@lib/notion';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
   const lastModified = new Date();
 
   const staticPaths = ARTICLE_CATEGORIES.map( category => {
@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         return p.properties.Slug?.type == 'rich_text'
           ?
             {
-              url: p.properties.Slug.rich_text[0].plain_text,
+              url: `${baseUrl}/blog/articles/${p.properties.Slug.rich_text[0].plain_text}`,
               lastModified
             }
           : null
