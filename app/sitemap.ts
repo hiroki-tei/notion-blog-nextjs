@@ -3,7 +3,7 @@ import { ARTICLE_CATEGORIES, getDatabase } from '@lib/notion';
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
   const lastModified = new Date();
 
   const staticPaths = ARTICLE_CATEGORIES.map( category => {
