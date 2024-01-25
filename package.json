@@ -22,7 +22,7 @@
     "@builder.io/sdk": "^2.1.1",
     "@notionhq/client": "^2.2.3",
     "link-preview-js": "^3.0.5",
-    "next": "^14.0.4",
+    "next": "^14.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-syntax-highlighter": "^15.5.0"
@@ -33,11 +33,10 @@
     "encoding": "^0.1.13",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-next": "^14.0.4",
+    "eslint-config-next": "^14.1.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.33.1",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "next-sitemap": "^4.2.3"
+    "eslint-plugin-react-hooks": "^4.3.0"
   }
 }
