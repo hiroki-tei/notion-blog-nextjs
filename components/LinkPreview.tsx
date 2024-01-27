@@ -42,8 +42,6 @@ const LinkPreview = ({ url, disp }: Props) => {
       .toPromise()
       .then((content) => setContent(content))
   }, [])
-  console.log(content)
-
 
   const setOGPDefault = ( arg: OGP ) => {
     const noContent = ['/notfound.svg']
