@@ -26,10 +26,7 @@ export default async function Page(props) {
     labels.flatMap(async (lbl) => {
       let pages = await pagesIntoURI(lbl.articles, articleItemLimit)
       pages = pages
-        .filter(page => {
-          const slug = page?.properties?.Slug?.rich_text[0]?.plain_text
-          return !!slug
-        })
+        .slice(0, articleItemLimit)
         .map(page => {
           return {
             uri: `/blog/articles/${page.properties.Slug.rich_text[0].plain_text}`,
