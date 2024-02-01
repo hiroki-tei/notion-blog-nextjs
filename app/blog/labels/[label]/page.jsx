@@ -4,6 +4,7 @@ import { RenderBuilderContent } from "@components/builder";
 import {
   getTagLibraryDatabase, listPagesFromLabel
 } from '@lib/notion';
+import * as validator from '@lib/validator';
 
 // Builder Public API Key set in .env file
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
@@ -24,8 +25,7 @@ export default async function Page(props) {
   const data = {
     page:
       pages
-        .filter(page => page?.properties?.Slug?.rich_text?.length > 0)
-        .filter(page => page.properties.Date.date?.start)
+        .filterForPublish()
         .map(page=> {
           const slug = page.properties.Slug.rich_text[0].plain_text
             return {
