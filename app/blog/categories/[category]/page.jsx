@@ -2,8 +2,9 @@ import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "@components/builder";
 
 import {
-  listLabelsFromCategory, pagesIntoURI, ARTICLE_CATEGORIES
+  listLabelsFromCategory, getPage, ARTICLE_CATEGORIES
 } from '@lib/notion';
+import * as validator from '@lib/validator'
 
 // Builder Public API Key set in .env file
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
@@ -24,12 +25,13 @@ export default async function Page(props) {
   const articleItemLimit = 3
   const labelWithPages = await Promise.all(
     labels.flatMap(async (lbl) => {
-      let pages = await pagesIntoURI(lbl.articles, articleItemLimit)
-      pages = pages
-        .filter(page => {
-          const slug = page?.properties?.Slug?.rich_text[0]?.plain_text
-          return !!slug
-        })
+      const pageResults = await Promise.all(
+        lbl.articles
+          .map(page => getPage(page))
+      )
+      const pages = pageResults
+        .filterForPublish()
+        .slice(0, articleItemLimit)
         .map(page => {
           return {
             uri: `/blog/articles/${page.properties.Slug.rich_text[0].plain_text}`,
