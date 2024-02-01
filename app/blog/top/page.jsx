@@ -2,7 +2,7 @@ import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "@components/builder";
 
 import {
-  getDatabase, ARTICLE_CATEGORIES
+  ARTICLE_CATEGORIES
 } from '@lib/notion';
 
 // Builder Public API Key set in .env file
