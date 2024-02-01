@@ -4,16 +4,19 @@ import { RenderBuilderContent } from "@components/builder";
 import {
   getDatabase, getBlocks, getPageFromSlug, getPage
 } from "@lib/notion";
+import * as validator from '@lib/validator'
 
 // Builder Public API Key set in .env file
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
 export async function generateStaticParams() {
   const database = await getDatabase();
-  return database?.map((page) => {
-    const slug = page.properties.Slug?.formula?.string;
-    return { id: page.id, slug };
-  });
+  return database
+    .filterForPublish()
+    .map((page) => {
+      const slug = page.properties.Slug?.formula?.string;
+      return { id: page.id, slug };
+    });
 }
 
 export default async function Page(props) {
