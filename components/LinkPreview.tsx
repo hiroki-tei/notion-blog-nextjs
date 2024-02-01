@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "./builder";
-import { fetchOgp } from '@actions/fetch-ogp';
+import { fetchOgp } from '@actions/fetch';
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
