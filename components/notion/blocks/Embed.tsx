@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchUrl } from '@actions/fetch'
+import parse from 'html-react-parser';
 
 export const Embed = ({ url }) => {
   const id = url.match(/(\.com\/)(.*?)([^#]+)/)?.pop() ?? null
