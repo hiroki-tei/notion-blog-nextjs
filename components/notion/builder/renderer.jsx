@@ -7,6 +7,7 @@ import styles from '@styles/builder/post.module.css';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { Callout } from '@components/notion/blocks/Callout';
+import { Embed } from '@components/notion/blocks/Embed';
 
 export function Block({block}) {
   // https://developers.notion.com/reference/block
@@ -174,6 +175,10 @@ export function Block({block}) {
 
     case 'callout': {
       return <Callout text={block.callout.rich_text[0].plain_text} />
+    }
+
+    case 'embed': {
+      return <Embed url={block.embed.url} />
     }
 
     default:

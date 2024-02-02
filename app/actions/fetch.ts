@@ -8,3 +8,8 @@ export async function fetchOgp(url: string) {
   })
   return data
 }
+
+export async function fetchUrl(url: string) {
+  const data = await (await fetch(url)).json()
+  return data
+}
