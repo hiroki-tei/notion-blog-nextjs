@@ -3,6 +3,18 @@ import { fetchUrl } from '@actions/fetch'
 import parse from 'html-react-parser';
 
 export const Embed = ({ url }) => {
+  switch (true) {
+    case url.match(/https:\/\/gist\.github\.com\/.*/) != null:
+      return (
+        <Gist url={url} />
+      )
+    default:
+      console.error('Invalid URL in Embed.tsx')
+      return null
+  }
+}
+
+const Gist = ({ url }) => {
   const id = url.match(/(\.com\/)(.*?)([^#]+)/)?.pop() ?? null
   const file = url.split('#').pop()
   const fileQS = file.match(/file*/)
@@ -29,4 +41,5 @@ export const Embed = ({ url }) => {
       </div>
     </>
   )
+
 }
