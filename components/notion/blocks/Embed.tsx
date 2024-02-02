@@ -13,13 +13,20 @@ export const Embed = ({ url }) => {
   const fetchGist = fetchUrl.bind(null, urlTarget)
   useEffect(() => {
     fetchGist().then( data => {
-      console.log(data)
       setGistContent(data)
     })
   }, [])
 
-  return (
-    <div>{gistContent.div}</div>
-  )
+  const codeBody = gistContent?.div?.match(/<table.*>[\s\S]*<\/table>/) ?? ''
 
+  return (
+    <>
+      <link rel="stylesheet" type="text/css" href={gistContent?.stylesheet} />
+      <div className='gist'>
+        <div className="js-check-bidi js-blob-code-container blob-code-content blob-wrapper">
+          {parse(codeBody?.[0] ?? '')}
+        </div>
+      </div>
+    </>
+  )
 }
