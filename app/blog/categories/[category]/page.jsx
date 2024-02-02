@@ -4,7 +4,7 @@ import { RenderBuilderContent } from "@components/builder";
 import {
   listLabelsFromCategory, getPage, ARTICLE_CATEGORIES
 } from '@lib/notion';
-import * as validator from '@lib/validator'
+import { forPublish } from "@lib/validator";
 
 // Builder Public API Key set in .env file
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
@@ -30,7 +30,7 @@ export default async function Page(props) {
           .map(page => getPage(page))
       )
       const pages = pageResults
-        .filterForPublish()
+        .filter(forPublish)
         .slice(0, articleItemLimit)
         .map(page => {
           return {

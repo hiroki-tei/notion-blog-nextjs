@@ -1,9 +1,5 @@
-interface Array<T> {
-  filterForPublish: () => {}
-}
-Array.prototype.filterForPublish = function () {
-  return this
-    .filter(page => page?.properties?.Published?.checkbox)
-    .filter(page => !!(page?.properties?.Slug?.rich_text[0]?.plain_text))
-    .filter(page => !!(page.properties.Date.date?.start))
+export const forPublish = (page) => {
+  return !!(page?.properties?.Published?.checkbox)
+  && !!(page?.properties?.Slug?.rich_text[0]?.plain_text)
+  && !!(page.properties.Date.date?.start)
 }
