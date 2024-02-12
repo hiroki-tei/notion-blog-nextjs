@@ -13,7 +13,7 @@
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook"
   },
-  "packageManager": "yarn@4.1.0",
+  "packageManager": "yarn@1.22.19",
   "author": "Samuel Kraft <samuelkraft@me.com> (https://github.com/samuelkraft)",
   "contributors": [
     "Samuel Kraft <samuelkraft@me.com> (https://github.com/samuelkraft)",
