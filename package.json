@@ -10,7 +10,8 @@
     "predeploy": "yarn build && vercel",
     "deploy": "vercel --prod",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test-storybook": "test-storybook"
   },
   "author": "Samuel Kraft <samuelkraft@me.com> (https://github.com/samuelkraft)",
   "contributors": [
