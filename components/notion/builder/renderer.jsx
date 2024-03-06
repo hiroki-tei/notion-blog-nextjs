@@ -8,6 +8,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { Callout } from '@components/notion/blocks/Callout';
 import { Embed } from '@components/notion/blocks/Embed';
+import { Video } from '@components/notion/blocks/Video';
 
 export function Block({block}) {
   // https://developers.notion.com/reference/block
@@ -166,7 +167,7 @@ export function Block({block}) {
     }
 
     case 'video': {
-      return <video controls width="640" src={block.video?.file?.url} />
+      return <Video data={block.video} />
     }
 
     case 'link_preview': {
