@@ -119,6 +119,14 @@
   padding: 6px 12px;
 }
 
+.iframe {
+  background: padding-box padding-box rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px;
+  width: 80%;
+  height: 50vh;
+}
+
 .row {
   display: flex;
 }
