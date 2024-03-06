@@ -166,7 +166,7 @@ export function Block({block}) {
     }
 
     case 'video': {
-      return <video controls width="640" src={block.video.file.url} />
+      return <video controls width="640" src={block.video?.file?.url} />
     }
 
     case 'link_preview': {
