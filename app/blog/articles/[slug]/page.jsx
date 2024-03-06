@@ -9,13 +9,16 @@ import { forPublish } from "@lib/validator";
 // Builder Public API Key set in .env file
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   const database = await getDatabase();
+
   return database
     .filter(forPublish)
     .map((page) => {
-      const slug = page.properties.Slug?.formula?.string;
-      return { id: page.id, slug };
+      const slug = page.properties.Slug?.rich_text[0].plain_text;
+      return { slug };
     });
 }
 
