@@ -105,7 +105,7 @@ export function Block({block}) {
     case 'divider':
       return <hr key={id} />;
     case 'quote':
-      return <blockquote key={id}>{value.rich_text[0].plain_text}</blockquote>;
+      return <blockquote key={id}>{value.rich_text[0]?.plain_text}</blockquote>;
     case 'code':
       const notionLang = value.language
       return (
