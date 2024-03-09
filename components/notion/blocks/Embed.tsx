@@ -29,17 +29,20 @@ const Gist = ({ url }) => {
     })
   }, [])
 
-  const codeBody = gistContent?.div?.match(/<table.*>[\s\S]*<\/table>/) ?? ''
+  const codeSpace: Array<string> | null = gistContent?.div?.match(/<table.*>[\s\S]*?<\/table>/g)
 
   return (
     <>
       <link rel="stylesheet" type="text/css" href={gistContent?.stylesheet} />
-      <div className='gist'>
-        <div className="js-check-bidi js-blob-code-container blob-code-content blob-wrapper">
-          {parse(codeBody?.[0] ?? '')}
+        <div className='gist'>
+        {codeSpace?.map( cSpace => {
+          return (
+            <div className="js-check-bidi js-blob-code-container blob-code-content blob-wrapper">
+              {parse(cSpace ?? '')}
+            </div>
+          )
+        })}
         </div>
-      </div>
     </>
   )
-
 }
