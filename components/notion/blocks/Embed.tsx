@@ -42,9 +42,11 @@ const Gist = ({ url }) => {
       <div className="gist" ref={ref => {
         if (ref) {
           const gistFile = ref?.querySelectorAll('.gist-file');
-          //const gistData = ref?.querySelectorAll('.gist-data');
-          //const gistMeta = ref?.querySelectorAll('.gist-meta');
-          gistFile.length && ref?.replaceChildren(...gistFile)
+          const gistData = ref?.querySelectorAll('.gist-data .js-check-bidi');
+          console.log(gistData)
+          const gistMeta = ref?.querySelectorAll('.gist-meta');
+          gistData.forEach(el => el.classList.add('blob-wrapper'))
+          gistFile.length && ref?.replaceChildren(...gistData)
         }
       }}>
         {gistContent?.element}
