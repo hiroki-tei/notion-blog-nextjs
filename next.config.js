@@ -13,7 +13,8 @@ const nextConfig = withBuilderDevTools({
         permanent: false
       }
     ];
-  }
+  },
+  staticPageGenerationTimeout: 120
 });
 
 module.exports = nextConfig;

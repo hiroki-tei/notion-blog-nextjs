@@ -13,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   })
 
-  const database = await getDatabase()
+  const database = await getDatabase(true)
 
   const articlePaths = database
       .filter(page => {
