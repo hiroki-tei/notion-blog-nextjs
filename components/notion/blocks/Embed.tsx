@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, memo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, memo, createElement } from 'react';
 import { fetchUrl } from '@actions/fetch'
 import parse from 'html-react-parser';
 
@@ -36,6 +36,26 @@ const Gist = ({ url }) => {
 
   //const codeSpace: Array<string> | null = gistContent?.div?.match(/<table.*>[\s\S]*?<\/table>/g)
 
+  const alternate = (arr1, arr2) => {
+    const result = [];
+    for (let i = 0; i < arr1.length; i++) {
+      result.push(arr1[i], arr2[i]);
+    }
+    return result;
+  }
+
+  const buildFileNameElement = (nodes: NodeListOf<Element>) => {
+    return Array.from(nodes).map((node) => {
+      // second element contains file name
+      const fileName = node.children[1].textContent
+      const newDiv = document.createElement('div')
+      newDiv.attributeStyleMap.set('line-height', '0.5')
+      const fileNameNode = document.createTextNode(fileName);
+      newDiv.appendChild(fileNameNode)
+      return newDiv
+    })
+  }
+
   return (
     <>
       <link rel="stylesheet" type="text/css" href={gistContent?.stylesheet} />
@@ -43,10 +63,14 @@ const Gist = ({ url }) => {
         if (ref) {
           const gistFile = ref?.querySelectorAll('.gist-file');
           const gistData = ref?.querySelectorAll('.gist-data .js-check-bidi');
-          console.log(gistData)
+          gistData.forEach(gist => {
+            gist.setAttribute('style', 'line-height: 0.3;')
+          })
+
           const gistMeta = ref?.querySelectorAll('.gist-meta');
+          const fileNameElem = buildFileNameElement(gistMeta);
           gistData.forEach(el => el.classList.add('blob-wrapper'))
-          gistFile.length && ref?.replaceChildren(...gistData)
+          gistFile.length && ref?.replaceChildren(...alternate(gistData, fileNameElem))
         }
       }}>
         {gistContent?.element}
