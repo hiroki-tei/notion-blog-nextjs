@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo, memo } from 'react';
 import { fetchUrl } from '@actions/fetch'
 import parse from 'html-react-parser';
 
@@ -21,28 +21,34 @@ const Gist = ({ url }) => {
     ? `&file=${file.replace('file-', '').replace('-', '.')}`
     : ''
   const urlTarget = `https://gist.github.com/${id}.json${fileQS}`
-  const [gistContent, setGistContent] = useState<any>()
+  const [gistContent, setGistContent] = useState<{element: any, stylesheet: string}>()
+  const [gistElementEntry, setGistElementEntry] = useState<any>()
   const fetchGist = fetchUrl.bind(null, urlTarget)
+  const ref = useRef<HTMLElement>(null)
   useEffect(() => {
     fetchGist().then( data => {
-      setGistContent(data)
+      setGistContent({
+        element: parse(data.div),
+        stylesheet: data.stylesheet
+      })
     })
   }, [])
 
-  const codeSpace: Array<string> | null = gistContent?.div?.match(/<table.*>[\s\S]*?<\/table>/g)
+  //const codeSpace: Array<string> | null = gistContent?.div?.match(/<table.*>[\s\S]*?<\/table>/g)
 
   return (
     <>
       <link rel="stylesheet" type="text/css" href={gistContent?.stylesheet} />
-        <div className='gist'>
-        {codeSpace?.map( cSpace => {
-          return (
-            <div className="js-check-bidi js-blob-code-container blob-code-content blob-wrapper">
-              {parse(cSpace ?? '')}
-            </div>
-          )
-        })}
-        </div>
+      <div className="gist" ref={ref => {
+        if (ref) {
+          const gistFile = ref?.querySelectorAll('.gist-file');
+          //const gistData = ref?.querySelectorAll('.gist-data');
+          //const gistMeta = ref?.querySelectorAll('.gist-meta');
+          gistFile.length && ref?.replaceChildren(...gistFile)
+        }
+      }}>
+        {gistContent?.element}
+      </div>
     </>
   )
 }
