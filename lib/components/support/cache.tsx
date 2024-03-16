@@ -1,5 +1,3 @@
-import React, { useState } from 'react'
-import useSWR from 'swr'
 import { revalidatePath } from 'next/cache'
 import { headers } from 'next/headers';
 
