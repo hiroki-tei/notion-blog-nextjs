@@ -1,5 +1,6 @@
 import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "@components/builder";
+import { Refetch } from "@lib/components/support/cache";
 
 import {
   getDatabase, getBlocks, getPageFromSlug, getPage
@@ -60,6 +61,7 @@ export default async function Page(props) {
 
   return (
     <>
+      <Refetch/>
       {/* Render the Builder page */}
       <RenderBuilderContent content={content} data={data} />
     </>
