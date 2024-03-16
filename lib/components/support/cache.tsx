@@ -2,7 +2,18 @@ import { revalidatePath } from 'next/cache'
 import { headers } from 'next/headers';
 
 
-export const Refetch = () => {
+export const Refetch = (props) => {
+  const imageExpired = props.blocks.some((block) => {
+    if (block.type == 'image' && block.image.type == 'file') {
+      const expiryTime = block.image.file.expiry_time
+      if (Date.parse(expiryTime) < Date.now()) {
+        return true
+      }
+    }
+  })
+  if (imageExpired) {
+    return null
+  }
   const pathname = headers().get('x-pathname') || "";
   switch (true) {
     case /\/blog\/articles\/.*$/.test(pathname): {

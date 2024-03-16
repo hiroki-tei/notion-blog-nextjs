@@ -61,7 +61,7 @@ export default async function Page(props) {
 
   return (
     <>
-      <Refetch/>
+      <Refetch blocks={blocks} />
       {/* Render the Builder page */}
       <RenderBuilderContent content={content} data={data} />
     </>
