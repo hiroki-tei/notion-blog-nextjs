@@ -11,8 +11,6 @@ export const Refetch = () => {
     default: {
     }
   }
-  return (
-      <></>
-  )
+  return null
 }
 
