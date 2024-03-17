@@ -3,7 +3,7 @@ import { headers } from 'next/headers';
 
 
 export const Refetch = (props) => {
-  const imageExpired = props.blocks.some((block) => {
+  const imageExpiredFound = props.blocks.some((block) => {
     if (block.type == 'image' && block.image.type == 'file') {
       const expiryTime = block.image.file.expiry_time
       if (Date.parse(expiryTime) < Date.now()) {
@@ -11,7 +11,7 @@ export const Refetch = (props) => {
       }
     }
   })
-  if (imageExpired) {
+  if (!imageExpiredFound) {
     return null
   }
   const pathname = headers().get('x-pathname') || "";
