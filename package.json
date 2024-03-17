@@ -19,9 +19,9 @@
     "Adam Beleko <bossbele@larven.io> (https://github.com/BossBele)"
   ],
   "dependencies": {
-    "@builder.io/dev-tools": "^0.1.24",
-    "@builder.io/react": "^3.1.1",
-    "@builder.io/sdk": "^2.1.1",
+    "@builder.io/dev-tools": "^0",
+    "@builder.io/react": "^3",
+    "@builder.io/sdk": "^2",
     "@notionhq/client": "^2.2.3",
     "@storybook/test-runner": "^0.16.0",
     "html-react-parser": "^5.1.1",
