@@ -15,7 +15,7 @@ export const Callout = ({ text }) => {
       })
       .toPromise()
       .then((content) => setContent(content))
-  })
+  }, [])
   const data = {
     text
   }
