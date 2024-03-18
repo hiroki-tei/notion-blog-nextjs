@@ -11,6 +11,7 @@ import { forPublish } from "@lib/validator";
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY);
 
 export const dynamicParams = false
+export const revalidate = 1800
 
 export async function generateStaticParams() {
   const database = await getDatabase();
