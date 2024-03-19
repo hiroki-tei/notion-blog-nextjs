@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import Link from 'next/link';
 
 import Text from '@components/text';
@@ -9,6 +9,7 @@ import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { Callout } from '@components/notion/blocks/Callout';
 import { Embed } from '@components/notion/blocks/Embed';
 import { Video } from '@components/notion/blocks/Video';
+import { getSingleBlockAction } from "@actions/notion";
 
 export function Block({block}) {
   // https://developers.notion.com/reference/block
@@ -91,6 +92,17 @@ export function Block({block}) {
         </div>
       );
     case 'image': {
+      const [refetchedBlock, setBlocks] = useState(null)
+      useEffect(() => {
+        if (isExpired(block)) {
+          const blcks = getSingleBlockAction(block.id)
+          .then(data => {
+            setBlocks(data)
+          })
+        }
+      }, [block.id])
+      const blockToRender = refetchedBlock || block
+      const value = blockToRender[type];
       const src = value.type === 'external' ? value.external.url : value.file.url;
       const caption = value.caption ? value.caption[0]?.plain_text : '';
       return (
@@ -207,4 +219,13 @@ export function renderNestedList(blocks) {
 
 function provideSpaceBetweenHeading(sibling, styles) {
   return !(sibling?.tagName in ['h1', 'h2', 'h3']) ? styles.heading : ''
+}
+
+const isExpired = (block) => {
+  if (block.type == 'image' && block.image.type == 'file') {
+    const expiryTime = block.image.file.expiry_time
+    if (Date.parse(expiryTime) < Date.now()) {
+      return true
+    }
+  }
 }
