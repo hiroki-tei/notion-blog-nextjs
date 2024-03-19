@@ -102,7 +102,6 @@ export function Block({block}) {
         }
       }, [block.id])
       const blockToRender = refetchedBlock || block
-      console.log(blockToRender)
       const value = blockToRender[type];
       const src = value?.type === 'external' ? value?.external?.url : value?.file?.url;
       const caption = value?.caption ? value?.caption[0]?.plain_text : '';
