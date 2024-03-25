@@ -9,6 +9,7 @@ import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { Callout } from '@components/notion/blocks/Callout';
 import { Embed } from '@components/notion/blocks/Embed';
 import { Video } from '@components/notion/blocks/Video';
+import { Code } from '@components/notion/blocks/Code';
 import { getSingleBlockAction } from "@actions/notion";
 
 export function Block({block}) {
@@ -119,12 +120,7 @@ export function Block({block}) {
     case 'quote':
       return <blockquote key={id}>{value.rich_text[0]?.plain_text}</blockquote>;
     case 'code':
-      const notionLang = value.language
-      return (
-        <SyntaxHighlighter language={notionLang} style={a11yDark} className={styles.code_block}>
-          {value.rich_text[0].plain_text}
-        </SyntaxHighlighter>
-      );
+      return <Code language={value.language} codeText={value.rich_text[0].plain_text} />;
     case 'file': {
       const srcFile = value.type === 'external' ? value.external.url : value.file.url;
       const splitSourceArray = srcFile.split('/');
