@@ -120,9 +120,14 @@ export function Block({block}) {
       return <blockquote key={id}>{value.rich_text[0]?.plain_text}</blockquote>;
     case 'code':
       const notionLang = value.language
+      const code = value?.rich_text.reduce((acc, cur) => {
+        acc += cur.plain_text
+        return acc
+      }, "")
+
       return (
         <SyntaxHighlighter language={notionLang} style={a11yDark} className={styles.code_block}>
-          {value.rich_text[0].plain_text}
+          {code}
         </SyntaxHighlighter>
       );
     case 'file': {
