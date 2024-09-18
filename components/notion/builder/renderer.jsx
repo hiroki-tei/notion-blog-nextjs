@@ -49,7 +49,7 @@ export function Block({block}) {
         </div>
       );
     case 'bulleted_list': {
-      return <ul>{value.children.map((child) => <Block block={child}/>)}</ul>;
+      return <ul className={styles.bullet}>{value.children.map((child) => <Block block={child}/>)}</ul>;
     }
     case 'numbered_list': {
       return <ol>{value.children.map((child) => <Block block={child}/>)}</ol>;
@@ -60,7 +60,7 @@ export function Block({block}) {
         <li key={block.id}>
           <Text title={value.rich_text} />
           {/* eslint-disable-next-line no-use-before-define */}
-          {!!value.children && renderNestedList(block)}
+          {!!block.has_children && renderNestedList(block)}
         </li>
       );
     case 'to_do':
@@ -210,16 +210,17 @@ export function Block({block}) {
 }
 
 export function renderNestedList(blocks) {
+  console.dir(blocks, {depth: null})
   const { type } = blocks;
   const value = blocks[type];
   if (!value) return null;
 
-  const isNumberedList = value.children[0].type === 'numbered_list_item';
+  const isNumberedList = blocks.children[0].type === 'numbered_list_item';
 
   if (isNumberedList) {
-    return <ol>{value.children.map((block) => renderBlock(block))}</ol>;
+    return <ol>{blocks.children.map((block) => <Block block={block}/>)}</ol>;
   }
-  return <ul>{value.children.map((block) => renderBlock(block))}</ul>;
+  return <ul>{blocks.children.map((block) => <Block block={block} />)}</ul>;
 }
 
 function provideSpaceBetweenHeading(sibling, styles) {
